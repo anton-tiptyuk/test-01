@@ -10,6 +10,13 @@
 
 yarn build
 
+# dev investigations
 yarn cli:built ParseAstCommand ignored/dump.txt ignored/step01-ast.json
 yarn cli:built AnalyzeStructureCommand ignored/dump.txt ignored/step02-analyzed.json
 yarn cli:built AnalyzePropertyValuesCommand ignored/dump.txt ignored/step03-property-values.json
+
+# # loading dump
+# yarn cli:built LoadDumpCommand ignored/dump.txt
+
+# # fetching report
+# yarn cli:built ReportCommand ignored/report.json
