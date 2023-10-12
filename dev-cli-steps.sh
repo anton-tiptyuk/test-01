@@ -16,7 +16,8 @@ yarn cli:built AnalyzeStructureCommand ignored/dump.txt ignored/step02-analyzed.
 yarn cli:built AnalyzePropertyValuesCommand ignored/dump.txt ignored/step03-property-values.json
 
 # # loading dump
-# yarn cli:built LoadDumpCommand ignored/dump.txt
+# yarn cli:built LoadDumpWithApiRatesCommand ignored/dump.txt
+# yarn cli:built LoadDumpWithFixedRatesCommand ignored/dump.txt
 
 # # fetching report
 # yarn cli:built ReportCommand ignored/report.json

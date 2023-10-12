@@ -56,9 +56,7 @@ export class DbLayerService {
   }
 
   getCurrencyRates() {
-    return this.currencyRateRepo.find({
-      order: { currency: 'ASC', date: 'ASC' },
-    });
+    return this.currencyRateRepo.find();
   }
 
   queryReport() {

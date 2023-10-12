@@ -6,25 +6,32 @@ import { FormatVersion } from '@/domain/format-version';
 import { Department, Donation, Employee, Statement } from '@/db/models';
 
 import { DbLayerService } from '../db-layer/db-layer.service';
+import { RateResolverService } from '../rate-resolver/rate-resolver.service';
 
 import {
-  buildRatesDictionary,
   mapDepartment,
   mapDonations,
+  mapRates,
   mapStatements,
 } from './mappers';
+import { RateResolver } from '@/domain/rate-resolver';
 
 @Injectable()
 export class DumpLoaderService {
-  constructor(private readonly dbLayerService: DbLayerService) {}
+  constructor(
+    private readonly dbLayerService: DbLayerService,
+    private readonly rateResolverService: RateResolverService,
+  ) {}
 
-  async load(dump: string) {
+  async load(dump: string, fixedRates: boolean) {
     const composer = new AstComposer(FormatVersion.v1);
     const rootNode = composer.compose(dump);
 
     const employeeNodes = rootNode.nested['E-List'][0].nested['Employee'];
-    const ratesNodes = rootNode.nested['Rates'][0].nested['Rate'];
-    const ratesDictionary = buildRatesDictionary(ratesNodes);
+
+    const rateResolver = fixedRates
+      ? new RateResolver(mapRates(rootNode.nested['Rates'][0].nested['Rate']))
+      : await this.rateResolverService.getResolver();
 
     const departmentsById: Record<number, Partial<Department>> = {};
     const statements: Partial<Statement>[] = [];
@@ -42,7 +49,7 @@ export class DumpLoaderService {
 
       const donationNodes = employeeNode.nested['Donation'];
       if (donationNodes) {
-        donations.push(...mapDonations(id, donationNodes, ratesDictionary));
+        donations.push(...mapDonations(id, donationNodes, rateResolver));
       }
 
       return { id, name, surname, departmentId: department.id };

@@ -21,3 +21,6 @@ import { DateTime } from 'luxon';
 
 export const parseDumpDate = (dateStr: string) =>
   DateTime.fromFormat(dateStr, 'EEE MMM d yyyy', { zone: 'UTC' }).toJSDate();
+
+export const jsDateToIsoDate = (date: Date) =>
+  DateTime.fromJSDate(date).toISODate();

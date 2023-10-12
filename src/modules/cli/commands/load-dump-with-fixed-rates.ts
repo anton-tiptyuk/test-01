@@ -6,7 +6,7 @@ import { DumpLoaderService } from '@/modules/dump-loader/dump-loader.service';
 import { AbstractCliCommand } from '../abstract-cli-command';
 
 @Injectable()
-export class LoadDumpCommand extends AbstractCliCommand {
+export class LoadDumpWithFixedRatesCommand extends AbstractCliCommand {
   constructor(private readonly service: DumpLoaderService) {
     super();
   }
@@ -22,6 +22,6 @@ export class LoadDumpCommand extends AbstractCliCommand {
   async invoke(args: any[]) {
     const [sourcePath] = args;
     const dumpString = fs.readFileSync(sourcePath, { encoding: 'utf8' });
-    await this.service.load(dumpString);
+    await this.service.load(dumpString, true);
   }
 }

@@ -3,10 +3,13 @@ import {
   UseInterceptors,
   UploadedFile,
   Post,
+  Body,
 } from '@nestjs/common';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { ApiBody, ApiConsumes, ApiTags } from '@nestjs/swagger';
 import { Express } from 'express';
+
+import { JoiValidationPipe } from '@/common/nest/joi-validation-pipe';
 
 import { DumpLoaderService } from './dump-loader.service';
 
@@ -24,6 +27,9 @@ export class DumpLoaderController {
           type: 'string',
           format: 'binary',
         },
+        fixedRates: {
+          type: 'boolean',
+        },
       },
     },
   })
@@ -32,7 +38,9 @@ export class DumpLoaderController {
   async upload(
     @UploadedFile()
     file: Express.Multer.File,
+    @Body('fixedRates', JoiValidationPipe.booleanPipe((x) => x.required()))
+    fixedRates: boolean,
   ) {
-    await this.service.load(file.buffer.toString());
+    await this.service.load(file.buffer.toString(), fixedRates);
   }
 }

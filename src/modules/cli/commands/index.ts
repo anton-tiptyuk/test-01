@@ -4,7 +4,8 @@ import { AbstractCliCommand } from '../abstract-cli-command';
 
 import { AnalyzePropertyValuesCommand } from './analyze-property-values';
 import { AnalyzeStructureCommand } from './analyze-structure';
-import { LoadDumpCommand } from './load-dump';
+import { LoadDumpWithApiRatesCommand } from './load-dump-with-api-rates';
+import { LoadDumpWithFixedRatesCommand } from './load-dump-with-fixed-rates';
 import { ParseAstCommand } from './parse-ast';
 import { ReportCommand } from './report';
 import { UpdateCurrencyRatesCommand } from './update-currency-rates';
@@ -13,7 +14,8 @@ export const commandsByNames = [
   ParseAstCommand,
   AnalyzeStructureCommand,
   AnalyzePropertyValuesCommand,
-  LoadDumpCommand,
+  LoadDumpWithApiRatesCommand,
+  LoadDumpWithFixedRatesCommand,
   ReportCommand,
   UpdateCurrencyRatesCommand,
 ].reduce(
