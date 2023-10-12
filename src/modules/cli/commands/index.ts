@@ -7,6 +7,7 @@ import { AnalyzeStructureCommand } from './analyze-structure';
 import { LoadDumpCommand } from './load-dump';
 import { ParseAstCommand } from './parse-ast';
 import { ReportCommand } from './report';
+import { UpdateCurrencyRatesCommand } from './update-currency-rates';
 
 export const commandsByNames = [
   ParseAstCommand,
@@ -14,6 +15,7 @@ export const commandsByNames = [
   AnalyzePropertyValuesCommand,
   LoadDumpCommand,
   ReportCommand,
+  UpdateCurrencyRatesCommand,
 ].reduce(
   (acc, val) => {
     acc[val.name] = val;

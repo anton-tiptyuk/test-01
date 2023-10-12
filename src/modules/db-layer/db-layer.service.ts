@@ -2,7 +2,13 @@ import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 
-import { Department, Donation, Employee, Statement } from '@/db/models';
+import {
+  CurrencyRate,
+  Department,
+  Donation,
+  Employee,
+  Statement,
+} from '@/db/models';
 
 // in fact, there are no donators who donated less than $100 in the dump
 const thresholdDonationSumUsd = 100;
@@ -10,6 +16,8 @@ const thresholdDonationSumUsd = 100;
 @Injectable()
 export class DbLayerService {
   constructor(
+    @InjectRepository(CurrencyRate)
+    private readonly currencyRateRepo: Repository<CurrencyRate>,
     @InjectRepository(Department)
     private readonly departmentRepo: Repository<Department>,
     @InjectRepository(Donation)
@@ -40,6 +48,17 @@ export class DbLayerService {
     await this.employeeRepo.insert(employees);
     await this.statementRepo.insert(statements);
     await this.donationRepo.insert(donations);
+  }
+
+  async importCurrencyRates(currencyRates: Partial<CurrencyRate>[]) {
+    await this.currencyRateRepo.delete({});
+    await this.currencyRateRepo.insert(currencyRates);
+  }
+
+  getCurrencyRates() {
+    return this.currencyRateRepo.find({
+      order: { currency: 'ASC', date: 'ASC' },
+    });
   }
 
   queryReport() {

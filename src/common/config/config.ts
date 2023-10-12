@@ -13,6 +13,9 @@ import {
   DB_USERNAME,
   DB_PASSWORD,
   DB_LOGGING,
+
+  // apilayer.com
+  APILAYER_API_KEY,
 } from './schema';
 
 import { version } from './version';
@@ -52,6 +55,10 @@ export class Config {
       entities: [`${dbDir}/models/**/*.entity${ext}`],
       migrations: [`${dbDir}/migrations/**/*${ext}`],
     };
+  }
+
+  get apilayerApiKey() {
+    return this.getValue(APILAYER_API_KEY);
   }
 
   get version() {

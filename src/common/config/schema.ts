@@ -11,6 +11,8 @@ export const DB_USERNAME = 'DB_USERNAME';
 export const DB_PASSWORD = 'DB_PASSWORD';
 export const DB_LOGGING = 'DB_LOGGING';
 
+export const APILAYER_API_KEY = 'APILAYER_API_KEY';
+
 export const schema = Joi.object().keys({
   // WEB
   [WEB_PORT]: Joi.number().default(DEFAULT_PORT),
@@ -22,4 +24,7 @@ export const schema = Joi.object().keys({
   [DB_USERNAME]: Joi.string().required(),
   [DB_PASSWORD]: Joi.string().required(),
   [DB_LOGGING]: Joi.boolean().default(false),
+
+  // apilayer.com
+  [APILAYER_API_KEY]: Joi.string().required(),
 });
