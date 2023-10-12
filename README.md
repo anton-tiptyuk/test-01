@@ -2,6 +2,7 @@
 
 - Copy `.sample.env` into `.env`. If you don't need no specific configuration you should be fine to go without any editing.
 - Run `docker-compose` to create a PostgreSQL container. Make sure your `5432` port is not being used. If it is or you would like to use an existing PostgreSQL server - update the `.env` and either remap ports in `docker-compose.yml` or create a database in your server accordingly
+- I've used node v.18 for this project and have no idea what's gonna happen with a different node version. `.nvmrc` is in place.
 - Run `yarn` to install dependencies
 - Run `yarn db migration:run` to run migrations for the database. There's also a helpful shell script `./db-re-create.sh` to recreate database structures from scratch any moment.
 
@@ -43,7 +44,7 @@ please use `GET /reporting/report` endpoint
 #### 2. How the import system will change if data on exchange rates disappears from the file, and it will need to be received asynchronously (via API)?
 
 ### Before trying
-I have changed your model a little bit. I've introduced a db entity to store that rates and it is possible to use it (requesting rates from the database still is asynchronous). There's no chance in real world you would be fetching those from API every time you need those. I've used a thirdparty API to get those rates. I've dumped a response I needed and mocked it, however, there's a really easy way to make it use real API.
+I have changed your task a little bit. I've introduced a db entity to store that rates and it is possible to use it (requesting rates from the database still is asynchronous). There's no chance in real world you would be fetching those from API every time you need those. I've used a [thirdparty API](https://apilayer.com/marketplace/fixer-api) to get those rates. I've dumped a response I needed and mocked it, however, there's a really easy way to make it use real API.
 
 To use the real API you can patch this [place](src/modules/rate-resolver/rate-resolver.service.ts):
 ```js
