@@ -25,12 +25,14 @@ To upload the dump file into the database using the web interface:
 - the swagger should be available at http://localhost:3000/api
 - use the `POST /dump-loader/upload` endpoint to upload a dump and get it loaded it into the database
 
-## Running a query
+## Reporting
 ### CLI
-2do
+```bash
+yarn cli ReportCommand _destinationPath_
+```
 
 ### web interface
-2do
+please use `GET /reporting/report` endpoint
 
 ### Questions
 
